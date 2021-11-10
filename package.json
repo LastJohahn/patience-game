@@ -1,0 +1,22 @@
+{
+  "name": "patience-game",
+  "version": "1.0.0",
+  "description": "A program to play a specific German varient of Patience (aka Solitaire) ",
+  "main": "patience.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LastJohahn/patience-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LastJohahn/patience-game/issues"
+  },
+  "homepage": "https://github.com/LastJohahn/patience-game#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
