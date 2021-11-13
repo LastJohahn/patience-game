@@ -14,3 +14,24 @@ const VALUES = [
   "Q",
   "K",
 ];
+
+export default class Deck {
+  constructor(cards = freshDeck()) {
+    this.cards = cards;
+  }
+}
+
+class Card {
+  constructor(suit, value) {
+    this.suit = suit;
+    this.value = value;
+  }
+}
+
+function freshDeck() {
+  return SUITS.flatMap((suit) => {
+    return VALUES.map((value) => {
+      return new Card(suit, value);
+    });
+  });
+}
