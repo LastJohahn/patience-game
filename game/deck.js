@@ -39,6 +39,24 @@ class Card {
     this.suit = suit;
     this.value = value;
   }
+
+  get colour() {
+    return this.suit === "♣" || this.suit === "♠" ? "black" : "red";
+  }
+
+  getHTML() {
+    const cardDiv = document.createElement("div");
+    cardDiv.innerText = this.suit;
+    cardDiv.classList.add("card", this.colour);
+    cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    return cardDiv;
+  }
+}
+
+{
+  /* <div class="card red" data-value="9 ♠">
+♠
+</div> */
 }
 
 function freshDeck() {
