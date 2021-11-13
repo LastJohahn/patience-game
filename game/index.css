@@ -1,6 +1,35 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+.game {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 4rem;
+  grid-template-rows: 7rem 7rem;
+  gap: 0.5rem;
+  padding-top: 1rem;
+}
+
+.top-row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 4rem);
+  gap: 0.5rem;
+}
+
+.game-area {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 4rem);
+  gap: 0.5rem;
+}
+
 .card {
-  height: 7rem;
-  width: 4rem;
+  height: 100%;
+  width: 100%;
   border: 1px solid black;
   border-radius: 0.5rem;
 }
