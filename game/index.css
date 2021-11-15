@@ -18,16 +18,16 @@
   margin-bottom: 1rem;
 }
 
+.top-row .card {
+  margin-bottom: -96px;
+}
+
 .game-area {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(10, 4rem);
   height: 96px;
   gap: 0.5rem;
-}
-
-.card-stack {
-  display: flex;
 }
 
 .card {
