@@ -16,7 +16,7 @@ const VALUES = [
 ];
 
 export default class Deck {
-  constructor(cards = freshDeck()) {
+  constructor(cards = doubleDeck()) {
     this.cards = cards;
   }
 
@@ -53,16 +53,17 @@ class Card {
   }
 }
 
-{
-  /* <div class="card red" data-value="9 ♠">
-♠
-</div> */
-}
-
 function freshDeck() {
   return SUITS.flatMap((suit) => {
     return VALUES.map((value) => {
       return new Card(suit, value);
     });
   });
+}
+
+function doubleDeck() {
+  let firstDeck = freshDeck();
+  let secondDeck = freshDeck();
+  let bothDecks = firstDeck.concat(secondDeck);
+  return bothDecks;
 }
