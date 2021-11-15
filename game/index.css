@@ -17,6 +17,16 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
+.deck-stack,
+.ace-stack,
+.card-stack {
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+}
+
+.empty {
+  border: none;
+}
 
 .top-row .card {
   margin-bottom: -96px;
