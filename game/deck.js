@@ -51,7 +51,7 @@ class Card {
   getHTML() {
     const cardDiv = document.createElement("div");
     cardDiv.innerText = this.suit;
-    cardDiv.classList.add("card", this.colour);
+    cardDiv.classList.add("card", this.colour, "is-open");
     cardDiv.dataset.value = `${this.value} ${this.suit}`;
     return cardDiv;
   }
