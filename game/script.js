@@ -1,5 +1,6 @@
 import Deck from "./deck.js";
 
+const deckStack = document.querySelector(".deck-stack");
 const cardStack1 = document.querySelector("#card-stack-1");
 const cardStack2 = document.querySelector("#card-stack-2");
 const cardStack3 = document.querySelector("#card-stack-3");
@@ -11,7 +12,7 @@ const cardStack8 = document.querySelector("#card-stack-8");
 const cardStack9 = document.querySelector("#card-stack-9");
 const cardStack10 = document.querySelector("#card-stack-10");
 
-let wholeDeck, dealDeck, inHand;
+let wholeDeck, dealDeck, inHand, inHandLength;
 
 startGame();
 firstDeal();
@@ -19,8 +20,16 @@ firstDeal();
 function startGame() {
   wholeDeck = new Deck();
   wholeDeck.shuffle();
+
   dealDeck = new Deck(wholeDeck.cards.slice(0, 50));
   inHand = new Deck(wholeDeck.cards.slice(50, wholeDeck.numberOfCards));
+
+  inHandLengthSetter();
+}
+
+function inHandLengthSetter() {
+  inHandLength = document.createTextNode(inHand.numberOfCards);
+  deckStack.appendChild(inHandLength);
 }
 
 function firstDeal() {
