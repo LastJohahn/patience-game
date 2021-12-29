@@ -21,6 +21,23 @@ firstDeal();
 
 const moveableCards = Array.from(document.querySelectorAll(".is-open"));
 const emptyAceStacks = Array.from(document.querySelectorAll(".ace-stack"));
+const emptyCardStacks = Array.from(document.querySelectorAll(".card-stack"));
+const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q"];
+const refIndexes = [
+  "A",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+];
 
 body.addEventListener("click", clickHandler);
 
@@ -28,7 +45,8 @@ function clickHandler(event) {
   // don't work if you click something that shouldn't be moved
   if (
     !moveableCards.includes(event.target) &&
-    !emptyAceStacks.includes(event.target)
+    !emptyAceStacks.includes(event.target) &&
+    !emptyCardStacks.includes(event.target)
   ) {
     return;
   }
@@ -36,12 +54,12 @@ function clickHandler(event) {
   if (clickCount === 0 && moveableCards.includes(event.target)) {
     clickCount++;
     selected = event.target;
-    console.log(selected);
+    console.log(selected, "firstclick");
     return;
     // second click to select where to move it
   } else if (clickCount === 1) {
     let moveTo = event.target;
-    console.log(moveTo.classList);
+    console.log(moveTo.classList, "secondclick");
     // check if it is an ace moving to an empty ace stack
     if (
       moveTo.classList.contains("ace-stack") &&
@@ -49,14 +67,22 @@ function clickHandler(event) {
       moveTo.children.length === 0
     ) {
       moveTo.appendChild(selected);
+    } else if (
+      // check if it is a card that is not king or ace moving onto card in game area
+      middleCards.includes(selected.dataset.value[0]) &&
+      moveTo.parentNode.classList.contains("card-stack") &&
+      // check if it's the right black/red combo
+      moveTo.classList[1] != selected.classList[1]
+      // check if the selected card is one smaller than the moveTo card
+      // && refIndexes.indexOf(moveTo.dataset.value[0]) -
+      //   refIndexes.indexOf(selected.dataset.value[0])
+    ) {
+      console.log(refIndexes.indexOf(selected.dataset.value[0]));
     }
-    // check if it is an ace moving to a two of a diff colour in game-area
-
     /* 
       logic: 
       move ace
         can only go up to free ace spot in top row
-        or onto a two of a diff colour in the game area
       move between ace & king
         can only go to an ace stack where the top most card is same suit and one smaller
         or onto card on game area that is diff colour and one larger
