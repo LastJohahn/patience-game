@@ -67,6 +67,7 @@ function clickHandler(event) {
       moveTo.children.length === 0
     ) {
       moveTo.appendChild(selected);
+    // check if it is a middle card being moved
     } else if (
       // check if it is a card that is not king or ace moving onto card in game area
       middleCards.includes(selected.dataset.value[0]) &&
@@ -78,6 +79,13 @@ function clickHandler(event) {
         refIndexes.indexOf(selected.dataset.value[0]) === 1
     ) {
       moveTo.parentNode.appendChild(selected)
+    // check if it is a king being moved to an empty card slot
+    } else if (
+      // check if moveTo is a card stack that is empty
+      moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
+      // check if it is a king being moved
+      && selected.dataset.value[0] === "K") {
+      moveTo.appendChild(selected)
     }
     /* 
       logic: 
