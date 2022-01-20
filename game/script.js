@@ -22,7 +22,7 @@ firstDeal();
 const moveableCards = Array.from(document.querySelectorAll(".is-open"));
 const emptyAceStacks = Array.from(document.querySelectorAll(".ace-stack"));
 const emptyCardStacks = Array.from(document.querySelectorAll(".card-stack"));
-const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q"];
+const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
   "A",
   "2",
@@ -33,7 +33,7 @@ const refIndexes = [
   "7",
   "8",
   "9",
-  "10",
+  "1",
   "J",
   "Q",
   "K",
@@ -74,10 +74,11 @@ function clickHandler(event) {
       // check if it's the right black/red combo
       moveTo.classList[1] != selected.classList[1]
       // check if the selected card is one smaller than the moveTo card
-      // && refIndexes.indexOf(moveTo.dataset.value[0]) -
-      //   refIndexes.indexOf(selected.dataset.value[0])
+      && refIndexes.indexOf(moveTo.dataset.value[0]) -
+        refIndexes.indexOf(selected.dataset.value[0]) === 1
     ) {
-      console.log(refIndexes.indexOf(selected.dataset.value[0]));
+      console.log(refIndexes.indexOf(moveTo.dataset.value[0]) -
+      refIndexes.indexOf(selected.dataset.value[0]));
     }
     /* 
       logic: 
