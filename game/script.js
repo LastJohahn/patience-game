@@ -77,8 +77,7 @@ function clickHandler(event) {
       && refIndexes.indexOf(moveTo.dataset.value[0]) -
         refIndexes.indexOf(selected.dataset.value[0]) === 1
     ) {
-      console.log(refIndexes.indexOf(moveTo.dataset.value[0]) -
-      refIndexes.indexOf(selected.dataset.value[0]));
+      moveTo.parentNode.appendChild(selected)
     }
     /* 
       logic: 
