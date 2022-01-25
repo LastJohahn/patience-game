@@ -19,10 +19,6 @@ let wholeDeck, dealDeck, inHand, inHandLength, selected;
 startGame();
 firstDeal();
 
-const moveableCards = Array.from(document.querySelectorAll(".is-open"));
-const flippedCards = Array.from(document.querySelectorAll(".is-flipped"));
-const emptyAceStacks = Array.from(document.querySelectorAll(".ace-stack"));
-const emptyCardStacks = Array.from(document.querySelectorAll(".card-stack"));
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
   "A",
@@ -45,10 +41,10 @@ body.addEventListener("click", clickHandler);
 function clickHandler(event) {
   // don't work if you click something that shouldn't be moved
   if (
-    !moveableCards.includes(event.target) &&
-    !emptyAceStacks.includes(event.target) &&
-    !emptyCardStacks.includes(event.target) &&
-    !flippedCards.includes(event.target)
+    !event.target.classList.contains("is-open") &&
+    !event.target.classList.contains("ace-stack") &&
+    !event.target.classList.contains("card-stack") &&
+    !event.target.classList.contains("is-flipped")
   ) {
     return;
   }
@@ -63,7 +59,7 @@ function clickHandler(event) {
     let toFlip = event.target;
     toFlip.classList.remove("is-flipped");
     toFlip.classList.add("is-open");
-    console.log(event.target);
+    // console.log(event.target);
     return;
     // second click to select where to move it
   } else if (clickCount === 1) {
