@@ -59,7 +59,6 @@ function clickHandler(event) {
     let toFlip = event.target;
     toFlip.classList.remove("is-flipped");
     toFlip.classList.add("is-open");
-    // console.log(event.target);
     return;
     // second click to select where to move it
   } else if (clickCount === 1) {
@@ -72,6 +71,14 @@ function clickHandler(event) {
       moveTo.children.length === 0
     ) {
       moveTo.appendChild(selected);
+      // check if it is single card that can go onto ace up top
+    } else if ( moveTo.parentNode.classList.contains("ace-stack")
+    // check if same suit
+    && selected.dataset.value.slice(-1) === moveTo.dataset.value.slice(-1)
+    && refIndexes.indexOf(selected.dataset.value[0]) -
+    refIndexes.indexOf(moveTo.dataset.value[0]) === 1
+    ) {
+      moveTo.parentNode.appendChild(selected)
     // check if it is a middle card being moved
     } else if (
       // check if it is a card that is not king or ace moving onto card in game area
