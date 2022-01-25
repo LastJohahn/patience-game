@@ -55,7 +55,7 @@ function clickHandler(event) {
     console.log(selected, "firstclick");
     return;
     // logic for flipping single card that is closed
-  } else if (clickCount === 0 && event.target.classList.contains("is-flipped")){
+  } else if (clickCount === 0 && event.target.classList.contains("is-flipped") && event.target === event.target.parentNode.lastChild){
     let toFlip = event.target;
     toFlip.classList.remove("is-flipped");
     toFlip.classList.add("is-open");
@@ -99,17 +99,6 @@ function clickHandler(event) {
       && selected.dataset.value[0] === "K") {
       moveTo.appendChild(selected)
     }
-    /* 
-      logic: 
-      move ace
-        can only go up to free ace spot in top row
-      move between ace & king
-        can only go to an ace stack where the top most card is same suit and one smaller
-        or onto card on game area that is diff colour and one larger
-      move king
-        can only go to an ace stack where the top most card is same suit and one smaller
-        or onto empty card stack in game area
-    */
     clickCount = 0;
   }
 }
