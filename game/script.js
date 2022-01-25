@@ -20,6 +20,7 @@ startGame();
 firstDeal();
 
 const moveableCards = Array.from(document.querySelectorAll(".is-open"));
+const flippedCards = Array.from(document.querySelectorAll(".is-flipped"));
 const emptyAceStacks = Array.from(document.querySelectorAll(".ace-stack"));
 const emptyCardStacks = Array.from(document.querySelectorAll(".card-stack"));
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
@@ -46,15 +47,23 @@ function clickHandler(event) {
   if (
     !moveableCards.includes(event.target) &&
     !emptyAceStacks.includes(event.target) &&
-    !emptyCardStacks.includes(event.target)
+    !emptyCardStacks.includes(event.target) &&
+    !flippedCards.includes(event.target)
   ) {
     return;
   }
   // first click to select what to move
-  if (clickCount === 0 && moveableCards.includes(event.target)) {
+  if (clickCount === 0 && event.target.classList.contains("is-open")) {
     clickCount++;
     selected = event.target;
     console.log(selected, "firstclick");
+    return;
+    // logic for flipping single card that is closed
+  } else if (clickCount === 0 && event.target.classList.contains("is-flipped")){
+    let toFlip = event.target;
+    toFlip.classList.remove("is-flipped");
+    toFlip.classList.add("is-open");
+    console.log(event.target);
     return;
     // second click to select where to move it
   } else if (clickCount === 1) {
