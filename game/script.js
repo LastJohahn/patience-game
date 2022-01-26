@@ -35,6 +35,7 @@ const refIndexes = [
   "Q",
   "K",
 ];
+const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
 body.addEventListener("click", clickHandler);
 
@@ -52,7 +53,7 @@ function clickHandler(event) {
   if (clickCount === 0 && event.target.classList.contains("is-open")) {
     clickCount++;
     selected = event.target;
-    console.log(selected, "firstclick");
+    // console.log(selected, "firstclick");
     return;
     // logic for flipping single card that is closed
   } else if (clickCount === 0 && event.target.classList.contains("is-flipped") && event.target === event.target.parentNode.lastChild){
@@ -90,7 +91,12 @@ function clickHandler(event) {
       && refIndexes.indexOf(moveTo.dataset.value[0]) -
         refIndexes.indexOf(selected.dataset.value[0]) === 1
     ) {
-      moveTo.parentNode.appendChild(selected)
+      moveTo.parentNode.appendChild(selected);
+      if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
+        moveTogetherClassMaker(moveTo, selected);
+      } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
+        selected.classList.add(moveTo.classList[3]);
+      }
     // check if it is a king being moved to an empty card slot
     } else if (
       // check if moveTo is a card stack that is empty
@@ -100,6 +106,7 @@ function clickHandler(event) {
       moveTo.appendChild(selected)
     }
     clickCount = 0;
+
   }
 }
 
@@ -145,4 +152,19 @@ function firstDeal() {
     cardStacks[cardStacks.length - 1].appendChild(dealDeck.pop().getHTML());
     cardStacks.pop();
   } while (cardStacks.length >= 2);
+}
+
+function moveTogetherClassMaker(moveTo, selected) {
+    const newClassArray = moveTo.dataset.value.split("");
+    let suit = newClassArray.pop()
+    for (let i = 0;  i < suitNames.length; i++) {
+     if (suitNames[i][suit]) {
+       suit = suitNames[i][suit]
+     }  
+    }
+    newClassArray.push(suit);
+    const newClass = (newClassArray.join("").replace(/\s+/g, ''))
+    moveTo.classList.add(newClass);
+    selected.classList.add(newClass);
+    return moveTo, selected
 }
