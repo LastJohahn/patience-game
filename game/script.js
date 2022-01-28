@@ -53,13 +53,11 @@ function clickHandler(event) {
   if (clickCount === 0 && event.target.classList.contains("is-open")) {
     clickCount++;
     selected = event.target;
-    // console.log(selected, "firstclick");
+    console.log(selected, "firstclick");
     return;
     // logic for flipping single card that is closed
   } else if (clickCount === 0 && event.target.classList.contains("is-flipped") && event.target === event.target.parentNode.lastChild){
-    let toFlip = event.target;
-    toFlip.classList.remove("is-flipped");
-    toFlip.classList.add("is-open");
+    flipCard(event.target)
     return;
     // second click to select where to move it
   } else if (clickCount === 1) {
@@ -92,6 +90,7 @@ function clickHandler(event) {
         refIndexes.indexOf(selected.dataset.value[0]) === 1
     ) {
       moveTo.parentNode.appendChild(selected);
+      // checks if card already has tag for card stack
       if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
         moveTogetherClassMaker(moveTo, selected);
       } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
@@ -152,6 +151,12 @@ function firstDeal() {
     cardStacks[cardStacks.length - 1].appendChild(dealDeck.pop().getHTML());
     cardStacks.pop();
   } while (cardStacks.length >= 2);
+}
+
+function flipCard(card) {
+  card.classList.remove("is-flipped");
+  card.classList.add("is-open");
+  return;
 }
 
 function moveTogetherClassMaker(moveTo, selected) {
