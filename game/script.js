@@ -56,7 +56,8 @@ function clickHandler(event) {
     console.log(selected, "firstclick");
     return;
     // logic for flipping single card that is closed
-  } else if (clickCount === 0 && event.target.classList.contains("is-flipped") && event.target === event.target.parentNode.lastChild){
+  } else if (clickCount === 0 && event.target.classList.contains("is-flipped") 
+  && event.target === event.target.parentNode.lastChild) {
     flipCard(event.target)
     return;
     // second click to select where to move it
@@ -71,12 +72,14 @@ function clickHandler(event) {
     ) {
       moveTo.appendChild(selected);
       // check if it is single card that can go onto ace up top
-    } else if ( moveTo.parentNode.classList.contains("ace-stack")
+    } else if (moveTo.parentNode.classList.contains("ace-stack")
     // check if same suit
     && selected.dataset.value.slice(-1) === moveTo.dataset.value.slice(-1)
+    // check if one larger than card already on acestack
     && refIndexes.indexOf(selected.dataset.value[0]) -
     refIndexes.indexOf(moveTo.dataset.value[0]) === 1
     ) {
+      moveTogetherClassRemover(selected);
       moveTo.parentNode.appendChild(selected)
     // check if it is a middle card being moved
     } else if (
@@ -172,4 +175,12 @@ function moveTogetherClassMaker(moveTo, selected) {
     moveTo.classList.add(newClass);
     selected.classList.add(newClass);
     return moveTo, selected
+}
+
+function moveTogetherClassRemover(selected) {
+  if (selected.classList.length > 3) {
+    let classToRemove = selected.classList[3];
+    selected.classList.remove(classToRemove);
+  }
+  return;
 }
