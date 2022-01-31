@@ -97,7 +97,15 @@ function clickHandler(event) {
       if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
         moveTogetherClassMaker(moveTo, selected);
       } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
-        selected.classList.add(moveTo.classList[3]);
+        moveTogetherClassAdder(moveTo, selected)
+      // checks if selected already has tag for card stack and moveTo doesn't
+      } else if (moveTo.classList.length <= 3 && selected.classList.length > 3) {
+        moveTogetherClassRemover(selected);
+        moveTogetherClassMaker(moveTo, selected)
+      // reverse from previous else if
+      } else if (moveTo.classList.length > 3 && selected.classList.length > 3) {
+        moveTogetherClassRemover(selected);
+        moveTogetherClassAdder(moveTo, selected)
       }
     // check if it is a king being moved to an empty card slot
     } else if (
@@ -177,10 +185,14 @@ function moveTogetherClassMaker(moveTo, selected) {
     return moveTo, selected
 }
 
-function moveTogetherClassRemover(selected) {
-  if (selected.classList.length > 3) {
-    let classToRemove = selected.classList[3];
-    selected.classList.remove(classToRemove);
+function moveTogetherClassRemover(card) {
+  if (card.classList.length > 3) {
+    let classToRemove = card.classList[3];
+    card.classList.remove(classToRemove);
   }
   return;
+}
+
+function moveTogetherClassAdder(moveTo, selected) {
+  selected.classList.add(moveTo.classList[3])
 }
