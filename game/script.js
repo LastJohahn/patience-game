@@ -64,6 +64,54 @@ function clickHandler(event) {
   } else if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
+    // stack of cards movement 
+    if (selected.classList.length > 3) {
+      const children = selected.parentNode.children;
+      const cardsToMove = []
+      let selectedI;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].dataset === selected.dataset)  {
+          selectedI = i;
+        }
+        if (children[i].classList[3] === selected.classList[3] && i >= selectedI) {
+          cardsToMove.push(children[i])
+        }
+      }
+      // logic for moving card stack that isn't topped by king
+      if (      
+        // check if it is a card that is not king or ace moving onto card in game area
+        middleCards.includes(selected.dataset.value[0]) &&
+        moveTo.parentNode.classList.contains("card-stack") &&
+        // check if it's the right black/red combo
+        moveTo.classList[1] != selected.classList[1]
+        // check if the selected card is one smaller than the moveTo card
+        && refIndexes.indexOf(moveTo.dataset.value[0]) -
+          refIndexes.indexOf(selected.dataset.value[0]) === 1) {
+            for (let i = 0 ; i < cardsToMove.length; i ++) {
+              if (moveTo.classList.length <= 3) {
+                moveTogetherClassRemover(cardsToMove[i]);
+                moveTogetherClassMaker(moveTo, cardsToMove[i]);
+                moveTo.parentNode.appendChild(cardsToMove[i]);
+              } else if (moveTo.classList.length > 3){
+                moveTogetherClassRemover(cardsToMove[i]);
+                moveTogetherClassAdder(moveTo, cardsToMove[i]);
+                moveTo.parentNode.appendChild(cardsToMove[i]);
+              }
+            }
+            clickCount = 0;
+            return;
+          } else if ( moveTo.classList.contains("card-stack") 
+          && moveTo.childElementCount === 0 
+          && selected.dataset.value[0] === "K"
+          ) {
+            for (let i = 0; i < cardsToMove.length; i++) {
+              moveTo.appendChild(cardsToMove[i])
+            }
+            clickCount = 0;
+            return;
+          }
+        }
+    // single card movement
     // check if it is an ace moving to an empty ace stack
     if (
       moveTo.classList.contains("ace-stack") &&
