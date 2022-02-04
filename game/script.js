@@ -45,8 +45,14 @@ function clickHandler(event) {
     !event.target.classList.contains("is-open") &&
     !event.target.classList.contains("ace-stack") &&
     !event.target.classList.contains("card-stack") &&
-    !event.target.classList.contains("is-flipped")
+    !event.target.classList.contains("is-flipped") &&
+    !event.target.classList.contains("deck-stack")
   ) {
+    return;
+  }
+  // deal
+  if (event.target.classList.contains("deck-stack")) {
+    deal();
     return;
   }
   // first click to select what to move
@@ -210,6 +216,56 @@ function firstDeal() {
     cardStacks[cardStacks.length - 1].appendChild(dealDeck.pop().getHTML());
     cardStacks.pop();
   } while (cardStacks.length >= 2);
+}
+
+function deal() {
+  const cardStacks = [
+    cardStack1,
+    cardStack2,
+    cardStack3,
+    cardStack4,
+    cardStack5,
+    cardStack6,
+    cardStack7,
+    cardStack8,
+    cardStack9,
+    cardStack10,
+  ];
+  if (inHand.numberOfCards >= 10) {
+  for (let i = 0; i < cardStacks.length; i++) {
+    if (cardStacks[i].children.length === 0 || cardStacks[i].firstChild.classList.contains("is-open")) {
+      if (cardStacks[i].children.length === 0 || cardStacks[i].firstChild.dataset.value[0] != "K") {
+        let dealCard = inHand.pop().getHTML();
+        flipCard(dealCard);
+        cardStacks[i].appendChild(dealCard);
+      }
+    } else if (cardStacks[i].firstChild.classList.contains("is-flipped")) {
+      let dealCard = inHand.pop().getHTML();
+      flipCard(dealCard);
+      cardStacks[i].appendChild(dealCard);
+    }
+  }
+  deckStack.removeChild(deckStack.firstChild);
+  inHandLengthSetter();
+} else if (inHand.numberOfCards >= 0) {
+  do {
+      if (cardStacks[0].children.length === 0 || cardStacks[0].firstChild.classList.contains("is-open")) {
+        if (cardStacks[0].children.length === 0 || cardStacks[0].firstChild.dataset.value[0] != "K") {
+          let dealCard = inHand.pop().getHTML();
+          flipCard(dealCard);
+          cardStacks[0].appendChild(dealCard);
+        }
+      } else if (cardStacks[0].firstChild.classList.contains("is-flipped")) {
+        let dealCard = inHand.pop().getHTML();
+        flipCard(dealCard);
+        cardStacks[0].appendChild(dealCard);
+      }
+      cardStacks.splice(0,1);
+  }
+  while (inHand.numberOfCards != 0)
+  deckStack.removeChild(deckStack.firstChild);
+  inHandLengthSetter();
+}
 }
 
 function flipCard(card) {
