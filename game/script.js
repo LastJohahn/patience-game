@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHere } from "./clickHandlerHelper.js";
+import { noClickHereCheck } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 const deckStack = document.querySelector(".deck-stack");
@@ -44,7 +44,7 @@ body.addEventListener("dblclick", doubleClickHandler)
 
 function clickHandler(event) {
   // don't work if you click something not part of the game
-  noClickHere(event);
+  noClickHereCheck(event);
   // deal
   if (event.target.classList.contains("deck-stack")) {
     deal();

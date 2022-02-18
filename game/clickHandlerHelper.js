@@ -1,4 +1,4 @@
-function noClickHere(event) {
+function noClickHereCheck(event) {
     if (
         !event.target.classList.contains("is-open") &&
         !event.target.classList.contains("ace-stack") &&
@@ -10,4 +10,4 @@ function noClickHere(event) {
       }
 }
 
-export {noClickHere}
+export {noClickHereCheck}
