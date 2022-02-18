@@ -43,11 +43,17 @@ body.addEventListener("click", clickHandler);
 body.addEventListener("dblclick", doubleClickHandler)
 
 function clickHandler(event) {
-  // don't work if you click something that shouldn't be moved
+  // don't work if you click something not part of the game
   noClickHere(event);
   // deal
   if (event.target.classList.contains("deck-stack")) {
     deal();
+    return;
+  }
+  // flip card
+  if (clickCount === 0 && event.target.classList.contains("is-flipped") 
+  && event.target === event.target.parentNode.lastChild) {
+    flipCard(event.target)
     return;
   }
   // first click to select what to move
@@ -56,13 +62,8 @@ function clickHandler(event) {
     selected = event.target;
     console.log(selected, "firstclick");
     return;
-    // logic for flipping single card that is closed
-  } else if (clickCount === 0 && event.target.classList.contains("is-flipped") 
-  && event.target === event.target.parentNode.lastChild) {
-    flipCard(event.target)
-    return;
-    // second click to select where to move it
-  } else if (clickCount === 1) {
+  // second click to select where to move it
+  }  else if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
     // stack of cards movement 
