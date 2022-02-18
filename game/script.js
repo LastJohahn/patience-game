@@ -1,4 +1,5 @@
 import Deck from "./deck.js";
+import { noClickHere } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 const deckStack = document.querySelector(".deck-stack");
@@ -39,17 +40,11 @@ const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦
 
 body.addEventListener("click", clickHandler);
 
+body.addEventListener("dblclick", doubleClickHandler)
+
 function clickHandler(event) {
   // don't work if you click something that shouldn't be moved
-  if (
-    !event.target.classList.contains("is-open") &&
-    !event.target.classList.contains("ace-stack") &&
-    !event.target.classList.contains("card-stack") &&
-    !event.target.classList.contains("is-flipped") &&
-    !event.target.classList.contains("deck-stack")
-  ) {
-    return;
-  }
+  noClickHere(event);
   // deal
   if (event.target.classList.contains("deck-stack")) {
     deal();
@@ -173,6 +168,8 @@ function clickHandler(event) {
 
   }
 }
+
+function doubleClickHandler(event) {}
 
 function startGame() {
   wholeDeck = new Deck();
