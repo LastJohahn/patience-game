@@ -43,11 +43,14 @@ body.addEventListener("click", clickHandler);
 body.addEventListener("dblclick", doubleClickHandler)
 
 function clickHandler(event) {
+
   // don't work if you click something not part of the game
   noClickHereCheck(event);
+
   // deal
   dealOut(event);
-  // flip card OR event.target as selected
+
+  // clickCount = 0; flip card OR event.target as selected
   if (clickCount === 0 && event.target.classList.contains("is-flipped") 
   && event.target === event.target.parentNode.lastChild) {
     flipCard(event.target)
@@ -58,7 +61,8 @@ function clickHandler(event) {
     console.log(selected, "firstclick");
     return;
   }
-  // second click to select where to move it
+
+  // clickCount = 1;
   if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
