@@ -47,20 +47,19 @@ function clickHandler(event) {
   noClickHereCheck(event);
   // deal
   dealOut(event);
-  // flip card
+  // flip card OR event.target as selected
   if (clickCount === 0 && event.target.classList.contains("is-flipped") 
   && event.target === event.target.parentNode.lastChild) {
     flipCard(event.target)
     return;
-  }
-  // first click to select what to move
-  if (clickCount === 0 && event.target.classList.contains("is-open")) {
+  } else if (clickCount === 0 && event.target.classList.contains("is-open")) {
     clickCount++;
     selected = event.target;
     console.log(selected, "firstclick");
     return;
+  }
   // second click to select where to move it
-  }  else if (clickCount === 1) {
+  if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
     // stack of cards movement 
