@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 const deckStack = document.querySelector(".deck-stack");
@@ -46,10 +46,7 @@ function clickHandler(event) {
   // don't work if you click something not part of the game
   noClickHereCheck(event);
   // deal
-  if (event.target.classList.contains("deck-stack")) {
-    deal();
-    return;
-  }
+  dealOut(event);
   // flip card
   if (clickCount === 0 && event.target.classList.contains("is-flipped") 
   && event.target === event.target.parentNode.lastChild) {
@@ -298,3 +295,5 @@ function moveTogetherClassRemover(card) {
 function moveTogetherClassAdder(moveTo, selected) {
   selected.classList.add(moveTo.classList[3])
 }
+
+export {deal}

@@ -1,3 +1,5 @@
+import {deal} from "./script.js"
+
 function noClickHereCheck(event) {
     if (
         !event.target.classList.contains("is-open") &&
@@ -10,4 +12,11 @@ function noClickHereCheck(event) {
       }
 }
 
-export {noClickHereCheck}
+function dealOut(event) {
+    if (event.target.classList.contains("deck-stack")) {
+        deal();
+        return;
+      }
+}
+
+export {noClickHereCheck, dealOut}
