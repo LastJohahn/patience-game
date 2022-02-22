@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck, dealOut } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut, cardsToMoveFinder } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 const deckStack = document.querySelector(".deck-stack");
@@ -68,17 +68,7 @@ function clickHandler(event) {
     console.log(moveTo.classList, "secondclick");
     // stack of cards movement 
     if (selected.classList.length > 3) {
-      const children = selected.parentNode.children;
-      const cardsToMove = []
-      let selectedI;
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].dataset === selected.dataset)  {
-          selectedI = i;
-        }
-        if (children[i].classList[3] === selected.classList[3] && i >= selectedI) {
-          cardsToMove.push(children[i])
-        }
-      }
+      const cardsToMove = cardsToMoveFinder(selected);
       // logic for moving card stack that isn't topped by king
       if (      
         // check if it is a card that is not king or ace moving onto card in game area

@@ -19,4 +19,19 @@ function dealOut(event) {
       }
 }
 
-export {noClickHereCheck, dealOut}
+function cardsToMoveFinder(selected) {
+  const children = selected.parentNode.children;
+  const cardsToMove = []
+  let selectedI;
+  for (let i = 0; i < children.length; i++) {
+    if (children[i].dataset === selected.dataset)  {
+      selectedI = i;
+    }
+    if (children[i].classList[3] === selected.classList[3] && i >= selectedI) {
+      cardsToMove.push(children[i])
+    }
+  }
+  return cardsToMove;
+}
+
+export {noClickHereCheck, dealOut, cardsToMoveFinder}
