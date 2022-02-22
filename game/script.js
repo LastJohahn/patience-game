@@ -2,7 +2,9 @@ import Deck from "./deck.js";
 import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
+
 const deckStack = document.querySelector(".deck-stack");
+
 const cardStack1 = document.querySelector("#card-stack-1");
 const cardStack2 = document.querySelector("#card-stack-2");
 const cardStack3 = document.querySelector("#card-stack-3");
@@ -14,8 +16,22 @@ const cardStack8 = document.querySelector("#card-stack-8");
 const cardStack9 = document.querySelector("#card-stack-9");
 const cardStack10 = document.querySelector("#card-stack-10");
 
+const aceStack1 = document.querySelector("#ace-stack-1")
+const aceStack2 = document.querySelector("#ace-stack-2")
+const aceStack3 = document.querySelector("#ace-stack-3")
+const aceStack4 = document.querySelector("#ace-stack-4")
+const aceStack5 = document.querySelector("#ace-stack-5")
+const aceStack6 = document.querySelector("#ace-stack-6")
+const aceStack7 = document.querySelector("#ace-stack-7")
+const aceStack8 = document.querySelector("#ace-stack-8")
+
+const aceStacks = [
+  aceStack1, aceStack2, aceStack3, aceStack4, aceStack5, aceStack6, aceStack7, aceStack8
+]
+
 let clickCount = 0;
 let wholeDeck, dealDeck, inHand, inHandLength, selected;
+let dblClick = false;
 
 startGame();
 firstDeal();
@@ -38,11 +54,16 @@ const refIndexes = [
 ];
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
+
 body.addEventListener("click", clickHandler);
 
-body.addEventListener("dblclick", doubleClickHandler)
+body.addEventListener("dblclick", doubleClickHandler);
+
 
 function clickHandler(event) {
+  
+  setTimeout(() => {dblClick = false; return}, 350)
+  if (!dblClick) {
 
   // don't work if you click something not part of the game
   noClickHereCheck(event);
@@ -66,7 +87,7 @@ function clickHandler(event) {
   if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
-    // stack of cards movement 
+    // moving a stack of cards
     if (selected.classList.length > 3) {
       const cardsToMove = cardsToMoveFinder(selected);
       if (      
@@ -92,9 +113,10 @@ function clickHandler(event) {
             return;
           }
         }
-    // single card movement
-    // check if it is an ace moving to an empty ace stack
+
+    // moving a single card
     if (
+      // check if it is an ace moving to an empty ace stack
       moveTo.classList.contains("ace-stack") &&
       selected.dataset.value[0] === "A" &&
       moveTo.children.length === 0
@@ -148,8 +170,21 @@ function clickHandler(event) {
 
   }
 }
+}
 
-function doubleClickHandler(event) {}
+function doubleClickHandler(event) {
+  dblClick = true;
+  const selected = event.target;
+  if (selected.dataset.value[0] === "A") {
+    for (let i = 7; i >= 0; i--) {
+      if (aceStacks[i].children.length === 0) {
+        aceStacks[i].appendChild(selected)
+      }
+    }
+  }
+  dblClick = false
+  return;
+}
 
 function startGame() {
   wholeDeck = new Deck();
