@@ -1,4 +1,4 @@
-import {deal} from "./script.js"
+import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover} from "./script.js"
 
 function noClickHereCheck(event) {
     if (
@@ -34,4 +34,18 @@ function cardsToMoveFinder(selected) {
   return cardsToMove;
 }
 
-export {noClickHereCheck, dealOut, cardsToMoveFinder}
+function cardMoveLoop(cardsToMove, moveTo) {
+  for (let i = 0 ; i < cardsToMove.length; i ++) {
+    if (moveTo.classList.length <= 3) {
+      moveTogetherClassRemover(cardsToMove[i]);
+      moveTogetherClassMaker(moveTo, cardsToMove[i]);
+      moveTo.parentNode.appendChild(cardsToMove[i]);
+    } else if (moveTo.classList.length > 3){
+      moveTogetherClassRemover(cardsToMove[i]);
+      moveTogetherClassAdder(moveTo, cardsToMove[i]);
+      moveTo.parentNode.appendChild(cardsToMove[i]);
+    }
+  }
+}
+
+export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop}

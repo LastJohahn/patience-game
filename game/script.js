@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck, dealOut, cardsToMoveFinder } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 const deckStack = document.querySelector(".deck-stack");
@@ -69,7 +69,6 @@ function clickHandler(event) {
     // stack of cards movement 
     if (selected.classList.length > 3) {
       const cardsToMove = cardsToMoveFinder(selected);
-      // logic for moving card stack that isn't topped by king
       if (      
         // check if it is a card that is not king or ace moving onto card in game area
         middleCards.includes(selected.dataset.value[0]) &&
@@ -79,17 +78,7 @@ function clickHandler(event) {
         // check if the selected card is one smaller than the moveTo card
         && refIndexes.indexOf(moveTo.dataset.value[0]) -
           refIndexes.indexOf(selected.dataset.value[0]) === 1) {
-            for (let i = 0 ; i < cardsToMove.length; i ++) {
-              if (moveTo.classList.length <= 3) {
-                moveTogetherClassRemover(cardsToMove[i]);
-                moveTogetherClassMaker(moveTo, cardsToMove[i]);
-                moveTo.parentNode.appendChild(cardsToMove[i]);
-              } else if (moveTo.classList.length > 3){
-                moveTogetherClassRemover(cardsToMove[i]);
-                moveTogetherClassAdder(moveTo, cardsToMove[i]);
-                moveTo.parentNode.appendChild(cardsToMove[i]);
-              }
-            }
+            cardMoveLoop(cardsToMove, moveTo);
             clickCount = 0;
             return;
           } else if ( moveTo.classList.contains("card-stack") 
@@ -289,4 +278,4 @@ function moveTogetherClassAdder(moveTo, selected) {
   selected.classList.add(moveTo.classList[3])
 }
 
-export {deal}
+export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover}
