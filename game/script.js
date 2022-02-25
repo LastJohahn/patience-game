@@ -282,4 +282,20 @@ function moveTogetherClassAdder(moveTo, selected) {
   selected.classList.add(moveTo.classList[3])
 }
 
-export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes, middleCards}
+function moveTogetherClassChecker(card, moveTo) {
+  if (moveTo.classList.length <= 3 && card.classList.length <= 3) {
+    moveTogetherClassMaker(moveTo, card);
+  } else if (moveTo.classList.length > 3 && card.classList.length <= 3) {
+    moveTogetherClassAdder(moveTo, card)
+  // checks if card already has tag for card stack and moveTo doesn't
+  } else if (moveTo.classList.length <= 3 && card.classList.length > 3) {
+    moveTogetherClassRemover(card);
+    moveTogetherClassMaker(moveTo, card)
+  // reverse from previous else if
+  } else if (moveTo.classList.length > 3 && card.classList.length > 3) {
+    moveTogetherClassRemover(card);
+    moveTogetherClassAdder(moveTo, card)
+  }
+}
+
+export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, moveTogetherClassChecker, refIndexes, middleCards}
