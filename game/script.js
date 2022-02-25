@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 
@@ -117,35 +117,13 @@ function clickHandler(event) {
         }
 
     // moving a single card onto ace stack
-    moveToAceStack(selected, moveTo)
+    moveToAceStack(selected, moveTo);
 
-    if (
-      // check if it is a card that is not king or ace moving onto card in game area
-      middleCards.includes(selected.dataset.value[0]) &&
-      moveTo.parentNode.classList.contains("card-stack") &&
-      // check if it's the right black/red combo
-      moveTo.classList[1] != selected.classList[1]
-      // check if the selected card is one smaller than the moveTo card
-      && refIndexes.indexOf(moveTo.dataset.value[0]) -
-        refIndexes.indexOf(selected.dataset.value[0]) === 1
-    ) {
-      moveTo.parentNode.appendChild(selected);
-      // checks if card already has tag for card stack
-      if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
-        moveTogetherClassMaker(moveTo, selected);
-      } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
-        moveTogetherClassAdder(moveTo, selected)
-      // checks if selected already has tag for card stack and moveTo doesn't
-      } else if (moveTo.classList.length <= 3 && selected.classList.length > 3) {
-        moveTogetherClassRemover(selected);
-        moveTogetherClassMaker(moveTo, selected)
-      // reverse from previous else if
-      } else if (moveTo.classList.length > 3 && selected.classList.length > 3) {
-        moveTogetherClassRemover(selected);
-        moveTogetherClassAdder(moveTo, selected)
-      }
+    middleCardMove(selected, moveTo);
+
     // check if it is a king being moved to an empty card slot
-    } else if (
+  
+    if (
       // check if moveTo is a card stack that is empty
       moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
       // check if it is a king being moved
@@ -153,10 +131,10 @@ function clickHandler(event) {
       moveTo.appendChild(selected)
     }
     clickCount = 0;
-
     }
   }
 }
+
 
 function doubleClickHandler(event) {
   dblClick = true;
@@ -304,4 +282,4 @@ function moveTogetherClassAdder(moveTo, selected) {
   selected.classList.add(moveTo.classList[3])
 }
 
-export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes}
+export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes, middleCards}

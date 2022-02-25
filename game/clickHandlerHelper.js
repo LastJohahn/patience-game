@@ -1,4 +1,4 @@
-import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes} from "./script.js"
+import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes, middleCards} from "./script.js"
 
 function noClickHereCheck(event) {
     if (
@@ -70,4 +70,51 @@ function moveToAceStack(selected, moveTo) {
   } 
 }
 
-export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack}
+function middleCardMove(selected, moveTo) {
+  if (
+    // check if it is a card that is not king or ace moving onto card in game area
+    middleCards.includes(selected.dataset.value[0]) &&
+    moveTo.parentNode.classList.contains("card-stack") &&
+    // check if it's the right black/red combo
+    moveTo.classList[1] != selected.classList[1]
+    // check if the selected card is one smaller than the moveTo card
+    && refIndexes.indexOf(moveTo.dataset.value[0]) -
+      refIndexes.indexOf(selected.dataset.value[0]) === 1
+  ) {
+    moveTo.parentNode.appendChild(selected);
+    // checkMoveTogetherClass(selected, moveTo)
+    // checks if card already has tag for card stack
+    if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
+      moveTogetherClassMaker(moveTo, selected);
+    } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
+      moveTogetherClassAdder(moveTo, selected)
+    // checks if selected already has tag for card stack and moveTo doesn't
+    } else if (moveTo.classList.length <= 3 && selected.classList.length > 3) {
+      moveTogetherClassRemover(selected);
+      moveTogetherClassMaker(moveTo, selected)
+    // reverse from previous else if
+    } else if (moveTo.classList.length > 3 && selected.classList.length > 3) {
+      moveTogetherClassRemover(selected);
+      moveTogetherClassAdder(moveTo, selected)
+    }
+}
+return;
+}
+
+// function checkMoveTogetherClass(card, moveTo) {
+//   if (moveTo.classList.length <= 3 && card.classList.length <= 3) {
+//     moveTogetherClassMaker(moveTo, card);
+//   } else if (moveTo.classList.length > 3 && card.classList.length <= 3) {
+//     moveTogetherClassAdder(moveTo, card)
+//   // checks if card already has tag for card stack and moveTo doesn't
+//   } else if (moveTo.classList.length <= 3 && card.classList.length > 3) {
+//     moveTogetherClassRemover(card);
+//     moveTogetherClassMaker(moveTo, card)
+//   // reverse from previous else if
+//   } else if (moveTo.classList.length > 3 && card.classList.length > 3) {
+//     moveTogetherClassRemover(card);
+//     moveTogetherClassAdder(moveTo, card)
+//   }
+// }
+
+export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove}
