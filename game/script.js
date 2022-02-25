@@ -59,9 +59,11 @@ body.addEventListener("click", clickHandler);
 
 body.addEventListener("dblclick", doubleClickHandler);
 
+body.addEventListener("contextmenu", rightClickHandler);
+
 
 function clickHandler(event) {
-  
+
   setTimeout(() => {dblClick = false; return}, 350)
   if (!dblClick) {
 
@@ -168,8 +170,8 @@ function clickHandler(event) {
     }
     clickCount = 0;
 
+    }
   }
-}
 }
 
 function doubleClickHandler(event) {
@@ -184,6 +186,11 @@ function doubleClickHandler(event) {
   }
   dblClick = false
   return;
+}
+
+function rightClickHandler(event) {
+  event.preventDefault();
+  clickCount = 0;
 }
 
 function startGame() {
