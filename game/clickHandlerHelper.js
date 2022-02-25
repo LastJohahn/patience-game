@@ -1,4 +1,4 @@
-import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover} from "./script.js"
+import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes} from "./script.js"
 
 function noClickHereCheck(event) {
     if (
@@ -48,4 +48,26 @@ function cardMoveLoop(cardsToMove, moveTo) {
   }
 }
 
-export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop}
+function moveToAceStack(selected, moveTo) {
+  if (
+    // check if it is an ace moving to an empty ace stack
+    moveTo.classList.contains("ace-stack") &&
+    selected.dataset.value[0] === "A" &&
+    moveTo.children.length === 0
+  ) {
+    moveTo.appendChild(selected);
+    // check if it is single card that can go onto ace up top
+  } else if (moveTo.parentNode.classList.contains("ace-stack")
+  // check if same suit
+  && selected.dataset.value.slice(-1) === moveTo.dataset.value.slice(-1)
+  // check if one larger than card already on acestack
+  && refIndexes.indexOf(selected.dataset.value[0]) -
+  refIndexes.indexOf(moveTo.dataset.value[0]) === 1
+  ) {
+    moveTogetherClassRemover(selected);
+    moveTo.parentNode.appendChild(selected)
+  // check if it is a middle card being moved
+  } 
+}
+
+export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack}

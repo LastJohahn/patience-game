@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
 
@@ -116,26 +116,10 @@ function clickHandler(event) {
           }
         }
 
-    // moving a single card
+    // moving a single card onto ace stack
+    moveToAceStack(selected, moveTo)
+
     if (
-      // check if it is an ace moving to an empty ace stack
-      moveTo.classList.contains("ace-stack") &&
-      selected.dataset.value[0] === "A" &&
-      moveTo.children.length === 0
-    ) {
-      moveTo.appendChild(selected);
-      // check if it is single card that can go onto ace up top
-    } else if (moveTo.parentNode.classList.contains("ace-stack")
-    // check if same suit
-    && selected.dataset.value.slice(-1) === moveTo.dataset.value.slice(-1)
-    // check if one larger than card already on acestack
-    && refIndexes.indexOf(selected.dataset.value[0]) -
-    refIndexes.indexOf(moveTo.dataset.value[0]) === 1
-    ) {
-      moveTogetherClassRemover(selected);
-      moveTo.parentNode.appendChild(selected)
-    // check if it is a middle card being moved
-    } else if (
       // check if it is a card that is not king or ace moving onto card in game area
       middleCards.includes(selected.dataset.value[0]) &&
       moveTo.parentNode.classList.contains("card-stack") &&
@@ -320,4 +304,4 @@ function moveTogetherClassAdder(moveTo, selected) {
   selected.classList.add(moveTo.classList[3])
 }
 
-export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover}
+export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes}
