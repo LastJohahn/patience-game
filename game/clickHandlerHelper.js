@@ -1,4 +1,4 @@
-import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, refIndexes, middleCards} from "./script.js"
+import {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, moveTogetherClassChecker, refIndexes, middleCards} from "./script.js"
 
 function noClickHereCheck(event) {
     if (
@@ -82,39 +82,10 @@ function middleCardMove(selected, moveTo) {
       refIndexes.indexOf(selected.dataset.value[0]) === 1
   ) {
     moveTo.parentNode.appendChild(selected);
-    // checkMoveTogetherClass(selected, moveTo)
-    // checks if card already has tag for card stack
-    if (moveTo.classList.length <= 3 && selected.classList.length <= 3) {
-      moveTogetherClassMaker(moveTo, selected);
-    } else if (moveTo.classList.length > 3 && selected.classList.length <= 3) {
-      moveTogetherClassAdder(moveTo, selected)
-    // checks if selected already has tag for card stack and moveTo doesn't
-    } else if (moveTo.classList.length <= 3 && selected.classList.length > 3) {
-      moveTogetherClassRemover(selected);
-      moveTogetherClassMaker(moveTo, selected)
-    // reverse from previous else if
-    } else if (moveTo.classList.length > 3 && selected.classList.length > 3) {
-      moveTogetherClassRemover(selected);
-      moveTogetherClassAdder(moveTo, selected)
+    moveTogetherClassChecker(selected, moveTo)  
     }
-}
-return;
+  return;
 }
 
-// function checkMoveTogetherClass(card, moveTo) {
-//   if (moveTo.classList.length <= 3 && card.classList.length <= 3) {
-//     moveTogetherClassMaker(moveTo, card);
-//   } else if (moveTo.classList.length > 3 && card.classList.length <= 3) {
-//     moveTogetherClassAdder(moveTo, card)
-//   // checks if card already has tag for card stack and moveTo doesn't
-//   } else if (moveTo.classList.length <= 3 && card.classList.length > 3) {
-//     moveTogetherClassRemover(card);
-//     moveTogetherClassMaker(moveTo, card)
-//   // reverse from previous else if
-//   } else if (moveTo.classList.length > 3 && card.classList.length > 3) {
-//     moveTogetherClassRemover(card);
-//     moveTogetherClassAdder(moveTo, card)
-//   }
-// }
 
 export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove}
