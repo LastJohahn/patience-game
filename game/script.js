@@ -73,7 +73,7 @@ function clickHandler(event) {
   // deal
   dealOut(event);
 
-  // clickCount = 0; flip card OR event.target as selected
+  // clickCount = 0; flip card OR set event.target as selected
   if (clickCount === 0 && event.target.classList.contains("is-flipped") 
   && event.target === event.target.parentNode.lastChild) {
     flipCard(event.target)
@@ -89,7 +89,7 @@ function clickHandler(event) {
   if (clickCount === 1) {
     let moveTo = event.target;
     console.log(moveTo.classList, "secondclick");
-    // moving a stack of cards
+    // moving a stack of cards together
     if (selected.classList.length > 3) {
       const cardsToMove = cardsToMoveFinder(selected);
       if (      
@@ -104,7 +104,9 @@ function clickHandler(event) {
             cardMoveLoop(cardsToMove, moveTo);
             clickCount = 0;
             return;
-          } else if ( moveTo.classList.contains("card-stack") 
+          } else if 
+          // check if it is king-topped stack moving to empty card stack
+          (moveTo.classList.contains("card-stack") 
           && moveTo.childElementCount === 0 
           && selected.dataset.value[0] === "K"
           ) {
@@ -119,10 +121,10 @@ function clickHandler(event) {
     // moving a single card onto ace stack
     moveToAceStack(selected, moveTo);
 
+    // moving middle card anywhere that isn't ace stack
     middleCardMove(selected, moveTo);
-
-    // check if it is a king being moved to an empty card slot
-  
+ 
+    // moving a king onto empty card stack
     if (
       // check if moveTo is a card stack that is empty
       moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
