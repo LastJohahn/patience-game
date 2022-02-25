@@ -53,6 +53,7 @@ class Card {
     cardDiv.innerText = this.suit;
     cardDiv.classList.add("card", this.colour, "is-open");
     cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    cardDiv.draggable = true;
     return cardDiv;
   }
 }
