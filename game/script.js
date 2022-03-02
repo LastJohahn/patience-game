@@ -36,6 +36,8 @@ let dblClick = false;
 startGame();
 firstDeal();
 
+const cards = document.querySelectorAll(".card")
+
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
   "A",
@@ -54,12 +56,30 @@ const refIndexes = [
 ];
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
-
 body.addEventListener("click", clickHandler);
 
 body.addEventListener("dblclick", doubleClickHandler);
 
 body.addEventListener("contextmenu", rightClickHandler);
+
+dragging();
+
+function dragging() {
+  cards.forEach((card) => {
+    card.addEventListener("dragstart", function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+      console.log(ev.dataTransfer.getData("text"));
+    })
+    card.addEventListener("dragover", function dragOver(ev) {
+      ev.preventDefault();
+    })
+    card.addEventListener("drop", function drop(ev) {
+      ev.preventDefault();
+      let data = ev.dataTransfer.getData("text");
+      ev.target.parentNode.appendChild(document.getElementById(data));
+    })
+  })
+}
 
 
 function clickHandler(event) {
