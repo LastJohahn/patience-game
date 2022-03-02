@@ -39,9 +39,10 @@ export default class Deck {
 }
 
 class Card {
-  constructor(suit, value) {
+  constructor(suit, value, deckNumber) {
     this.suit = suit;
     this.value = value;
+    this.deckNumber = deckNumber
   }
 
   get colour() {
@@ -50,6 +51,7 @@ class Card {
 
   getHTML() {
     const cardDiv = document.createElement("div");
+    cardDiv.id = `${this.value}${this.suit}${this.deckNumber}`
     cardDiv.innerText = this.suit;
     cardDiv.classList.add("card", this.colour, "is-open");
     cardDiv.dataset.value = `${this.value} ${this.suit}`;
@@ -58,17 +60,17 @@ class Card {
   }
 }
 
-function freshDeck() {
+function freshDeck(deckNumber) {
   return SUITS.flatMap((suit) => {
     return VALUES.map((value) => {
-      return new Card(suit, value);
+      return new Card(suit, value, deckNumber);
     });
   });
 }
 
 function doubleDeck() {
-  let firstDeck = freshDeck();
-  let secondDeck = freshDeck();
+  let firstDeck = freshDeck(0);
+  let secondDeck = freshDeck(1);
   let bothDecks = firstDeck.concat(secondDeck);
   return bothDecks;
 }
