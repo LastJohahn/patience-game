@@ -36,7 +36,7 @@ let dblClick = false;
 startGame();
 firstDeal();
 
-const cards = document.querySelectorAll(".card")
+
 
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
@@ -62,11 +62,11 @@ body.addEventListener("dblclick", doubleClickHandler);
 
 body.addEventListener("contextmenu", rightClickHandler);
 
-dragging();
-
 function dragging() {
+  let cards = document.querySelectorAll(".card")
   cards.forEach((card) => {
     card.addEventListener("dragstart", function drag(ev) {
+      console.log("dragging")
       ev.dataTransfer.setData("text", ev.target.id);
       console.log(ev.dataTransfer.getData("text"));
     })
@@ -76,6 +76,7 @@ function dragging() {
     card.addEventListener("drop", function drop(ev) {
       ev.preventDefault();
       let data = ev.dataTransfer.getData("text");
+      console.log(data, "after")
       ev.target.parentNode.appendChild(document.getElementById(data));
     })
   })
@@ -180,7 +181,7 @@ function rightClickHandler(event) {
 function startGame() {
   wholeDeck = new Deck();
   wholeDeck.shuffle();
-
+  
   dealDeck = new Deck(wholeDeck.cards.slice(0, 50));
   inHand = new Deck(wholeDeck.cards.slice(50, wholeDeck.numberOfCards));
 
@@ -219,6 +220,7 @@ function firstDeal() {
     cardStacks[cardStacks.length - 1].appendChild(dealDeck.pop().getHTML());
     cardStacks.pop();
   } while (cardStacks.length >= 2);
+  dragging();
 }
 
 function deal() {
@@ -269,6 +271,7 @@ function deal() {
   deckStack.removeChild(deckStack.firstChild);
   inHandLengthSetter();
 }
+dragging()
 }
 
 function flipCard(card) {
