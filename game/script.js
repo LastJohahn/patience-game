@@ -36,8 +36,6 @@ let dblClick = false;
 startGame();
 firstDeal();
 
-
-
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
   "A",
@@ -62,26 +60,63 @@ body.addEventListener("dblclick", doubleClickHandler);
 
 body.addEventListener("contextmenu", rightClickHandler);
 
-function dragging() {
-  let cards = document.querySelectorAll(".card")
-  cards.forEach((card) => {
-    card.addEventListener("dragstart", function drag(ev) {
-      console.log("dragging")
-      ev.dataTransfer.setData("text", ev.target.id);
-      console.log(ev.dataTransfer.getData("text"));
+function draggingOntoAceStack() {
+  let aceStacks = document.querySelectorAll(".ace-stack");
+  aceStacks.forEach((aceStack) => {
+    aceStack.addEventListener("dragover", function dragOver(event) {
+      event.preventDefault();
     })
-    card.addEventListener("dragover", function dragOver(ev) {
-      ev.preventDefault();
-    })
-    card.addEventListener("drop", function drop(ev) {
-      ev.preventDefault();
-      let data = ev.dataTransfer.getData("text");
-      console.log(data, "after")
-      ev.target.parentNode.appendChild(document.getElementById(data));
+    aceStack.addEventListener("drop", function drop(event) {
+      event.preventDefault();
+      let selectedData = event.dataTransfer.getData("text");
+      let selected = document.getElementById(selectedData);
+      let moveTo = event.target;
+      moveToAceStack(selected, moveTo);
     })
   })
 }
 
+function draggingOntoCardStack() {
+  let cardStacks = document.querySelectorAll(".card-stack");
+  cardStacks.forEach((cardStack) => {
+    cardStack.addEventListener("dragover", function dragOver(event) {
+      event.preventDefault();
+    })
+    cardStack.addEventListener("drop", function drop(event) {
+      event.preventDefault();
+      let selectedData = event.dataTransfer.getData("text");
+      let selected = document.getElementById(selectedData);
+      let moveTo = event.target;
+
+      if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
+        && selected.dataset.value[0] === "K") {
+        moveTo.appendChild(selected)
+      }
+    })
+    })
+}
+
+function dragging() {
+  let cards = document.querySelectorAll(".card")
+  cards.forEach((card) => {
+    card.addEventListener("dragstart", function drag(event) {
+      let selected = event.target;
+      event.dataTransfer.setData("text", selected.id);
+    })
+    card.addEventListener("dragover", function dragOver(event) {
+      event.preventDefault();
+    })
+    card.addEventListener("drop", function drop(event) {
+      event.preventDefault();
+      let selectedData = event.dataTransfer.getData("text");
+      let selected = document.getElementById(selectedData);
+      let moveTo = event.target;
+      let moveToData = moveTo.id;
+
+      middleCardMove(selected, moveTo);
+    })
+  })
+}
 
 function clickHandler(event) {
 
@@ -221,6 +256,8 @@ function firstDeal() {
     cardStacks.pop();
   } while (cardStacks.length >= 2);
   dragging();
+  draggingOntoAceStack();
+  draggingOntoCardStack();
 }
 
 function deal() {
