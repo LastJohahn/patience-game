@@ -99,7 +99,7 @@ function draggingOntoCardStack() {
 function dragging() {
   let cards = document.querySelectorAll(".card")
   cards.forEach((card) => {
-    card.addEventListener("dragstart", function drag(event) {
+      card.addEventListener("dragstart", function drag(event) {
       let selected = event.target;
       event.dataTransfer.setData("text", selected.id);
     })
@@ -111,12 +111,18 @@ function dragging() {
       let selectedData = event.dataTransfer.getData("text");
       let selected = document.getElementById(selectedData);
       let moveTo = event.target;
-      let moveToData = moveTo.id;
-
+      if (selected.classList.length <= 3 || selected.parentNode.lastElementChild === selected) {
       middleCardMove(selected, moveTo);
-    })
+    }})
   })
 }
+
+// function draggingMoreCards () {
+//   let cards = document.querySelectorAll(".card")
+//   cards.forEach((card) => {
+
+//   })
+// }
 
 function clickHandler(event) {
 
