@@ -96,13 +96,13 @@ function draggingOntoCardStack() {
         && selected.dataset.value[0] === "K" && selected.classList.length <= 3 && selected.parentNode.lastElementChild === selected) {
         moveTo.appendChild(selected)
       } else if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
-      && selected.dataset.value[0] === "K" && selected.classList.length > 3 && selected.parentNode.lastElementChild === selected) {
+      && selected.dataset.value[0] === "K" && selected.classList.length > 3) {
         const cardsToMove = cardsToMoveFinder(selected);
         for (let i = 0; i < cardsToMove.length; i++) {
           moveTo.appendChild(cardsToMove[i])
         }
       } else {
-        return
+        return;
       }
     })
     })
@@ -149,67 +149,12 @@ function clickHandler(event) {
   // deal
   dealOut(event);
 
-  // clickCount = 0; flip card OR set event.target as selected
-  if (clickCount === 0 && event.target.classList.contains("is-flipped") 
+  // flip card
+  if (event.target.classList.contains("is-flipped") 
   && event.target === event.target.parentNode.lastChild) {
     flipCard(event.target)
     return;
-  } else if (clickCount === 0 && event.target.classList.contains("is-open")) {
-    clickCount++;
-    selected = event.target;
-    console.log(selected, "firstclick");
-    return;
-  }
-
-  // clickCount = 1;
-  if (clickCount === 1) {
-    let moveTo = event.target;
-    console.log(moveTo.classList, "secondclick");
-    // moving a stack of cards together
-    if (selected.classList.length > 3) {
-      const cardsToMove = cardsToMoveFinder(selected);
-      if (      
-        // check if it is a card that is not king or ace moving onto card in game area
-        middleCards.includes(selected.dataset.value[0]) &&
-        moveTo.parentNode.classList.contains("card-stack") &&
-        // check if it's the right black/red combo
-        moveTo.classList[1] != selected.classList[1]
-        // check if the selected card is one smaller than the moveTo card
-        && refIndexes.indexOf(moveTo.dataset.value[0]) -
-          refIndexes.indexOf(selected.dataset.value[0]) === 1) {
-            cardMoveLoop(cardsToMove, moveTo);
-            clickCount = 0;
-            return;
-          } else if 
-          // check if it is king-topped stack moving to empty card stack
-          (moveTo.classList.contains("card-stack") 
-          && moveTo.childElementCount === 0 
-          && selected.dataset.value[0] === "K"
-          ) {
-            for (let i = 0; i < cardsToMove.length; i++) {
-              moveTo.appendChild(cardsToMove[i])
-            }
-            clickCount = 0;
-            return;
-          }
-        }
-
-    // moving a single card onto ace stack
-    moveToAceStack(selected, moveTo);
-
-    // moving middle card anywhere that isn't ace stack
-    middleCardMove(selected, moveTo);
- 
-    // moving a king onto empty card stack
-    if (
-      // check if moveTo is a card stack that is empty
-      moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
-      // check if it is a king being moved
-      && selected.dataset.value[0] === "K") {
-      moveTo.appendChild(selected)
-    }
-    clickCount = 0;
-    }
+  } 
   }
 }
 
