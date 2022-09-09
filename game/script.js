@@ -376,6 +376,7 @@ function moveTogetherClassChecker(card, moveTo) {
 
 function moveTogetherClassCheckerOnDeal (card) {
   let previousCard = card.previousElementSibling; 
+  if (previousCard) {
   if (previousCard.classList.length <= 3) {
     // checks if right red/black combo
     if (previousCard.classList[1] != card.classList[1] 
@@ -389,6 +390,8 @@ function moveTogetherClassCheckerOnDeal (card) {
         moveTogetherClassAdder(previousCard, card);
       }
   }
+  }
+  return ;
 }
 
 export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, moveTogetherClassChecker, refIndexes, middleCards}
