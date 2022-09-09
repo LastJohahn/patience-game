@@ -89,8 +89,14 @@ function draggingOntoCardStack() {
       let moveTo = event.target;
 
       if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
-        && selected.dataset.value[0] === "K") {
+        && selected.dataset.value[0] === "K" && selected.classList.length <= 3) {
         moveTo.appendChild(selected)
+      } else if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
+      && selected.dataset.value[0] === "K" && selected.classList.length > 3) {
+        const cardsToMove = cardsToMoveFinder(selected);
+        for (let i = 0; i < cardsToMove.length; i++) {
+          moveTo.appendChild(cardsToMove[i])
+        }
       }
     })
     })
