@@ -292,11 +292,13 @@ function deal() {
         let dealCard = inHand.pop().getHTML();
         flipCard(dealCard);
         cardStacks[i].appendChild(dealCard);
+        moveTogetherClassCheckerOnDeal(dealCard)
       }
     } else if (cardStacks[i].firstChild.classList.contains("is-flipped")) {
       let dealCard = inHand.pop().getHTML();
       flipCard(dealCard);
       cardStacks[i].appendChild(dealCard);
+      moveTogetherClassCheckerOnDeal(dealCard)
     }
   }
   deckStack.removeChild(deckStack.firstChild);
