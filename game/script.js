@@ -71,7 +71,11 @@ function draggingOntoAceStack() {
       let selectedData = event.dataTransfer.getData("text");
       let selected = document.getElementById(selectedData);
       let moveTo = event.target;
+      if (selected.parentNode.lastElementChild === selected) {
       moveToAceStack(selected, moveTo);
+      } else {
+        return;
+      }
     })
   })
 }
@@ -89,14 +93,16 @@ function draggingOntoCardStack() {
       let moveTo = event.target;
 
       if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
-        && selected.dataset.value[0] === "K" && selected.classList.length <= 3) {
+        && selected.dataset.value[0] === "K" && selected.classList.length <= 3 && selected.parentNode.lastElementChild === selected) {
         moveTo.appendChild(selected)
       } else if (moveTo.classList.contains("card-stack") && moveTo.childElementCount === 0 
-      && selected.dataset.value[0] === "K" && selected.classList.length > 3) {
+      && selected.dataset.value[0] === "K" && selected.classList.length > 3 && selected.parentNode.lastElementChild === selected) {
         const cardsToMove = cardsToMoveFinder(selected);
         for (let i = 0; i < cardsToMove.length; i++) {
           moveTo.appendChild(cardsToMove[i])
         }
+      } else {
+        return
       }
     })
     })
@@ -117,7 +123,7 @@ function dragging() {
       let selectedData = event.dataTransfer.getData("text");
       let selected = document.getElementById(selectedData);
       let moveTo = event.target;
-      if (selected.classList.length <= 3 || selected.parentNode.lastElementChild === selected) {
+      if (selected.classList.length <= 3 && selected.parentNode.lastElementChild === selected) {
       middleCardMove(selected, moveTo);
     } else if (selected.classList.length > 3) {
       let selectedData = event.dataTransfer.getData("text");
@@ -125,6 +131,8 @@ function dragging() {
       let moveTo = event.target;
       let cardsToMove = cardsToMoveFinder(selected);
       cardMoveLoop(cardsToMove, moveTo);
+    } else if (selected.classList.length <= 3 && selected.parentNode.lastElementChild != selected) {
+      return;
     }
   })
   })
