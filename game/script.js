@@ -113,16 +113,16 @@ function dragging() {
       let moveTo = event.target;
       if (selected.classList.length <= 3 || selected.parentNode.lastElementChild === selected) {
       middleCardMove(selected, moveTo);
-    }})
+    } else if (selected.classList.length > 3) {
+      let selectedData = event.dataTransfer.getData("text");
+      let selected = document.getElementById(selectedData);
+      let moveTo = event.target;
+      let cardsToMove = cardsToMoveFinder(selected);
+      cardMoveLoop(cardsToMove, moveTo);
+    }
+  })
   })
 }
-
-// function draggingMoreCards () {
-//   let cards = document.querySelectorAll(".card")
-//   cards.forEach((card) => {
-
-//   })
-// }
 
 function clickHandler(event) {
 
