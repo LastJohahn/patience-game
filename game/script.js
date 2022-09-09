@@ -372,4 +372,21 @@ function moveTogetherClassChecker(card, moveTo) {
   }
 }
 
+function moveTogetherClassCheckerOnDeal (card) {
+  let previousCard = card.previousElementSibling; 
+  if (previousCard.classList.length <= 3) {
+    // checks if right red/black combo
+    if (previousCard.classList[1] != card.classList[1] 
+    // checks if card is one smaller than previousCard 
+      && refIndexes.indexOf(previousCard.dataset.value[0]) - refIndexes.indexOf(card.dataset.value[0]) === 1) {
+        moveTogetherClassMaker(previousCard, card);
+      }
+  } else if (previousCard.classList > 3) {
+    if (previousCard.classList[1] != card.classList[1]
+      && refIndexes.indexOf(previousCard.dataset.value[0]) - refIndexes.indexOf(card.dataset.value[0]) === 1) {
+        moveTogetherClassAdder(previousCard, card);
+      }
+  }
+}
+
 export {deal, moveTogetherClassAdder, moveTogetherClassMaker, moveTogetherClassRemover, moveTogetherClassChecker, refIndexes, middleCards}
