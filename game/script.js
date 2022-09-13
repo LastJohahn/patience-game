@@ -125,7 +125,13 @@ function dragging() {
       let moveTo = event.target;
       if (selected.classList.length <= 3 && selected.parentNode.lastElementChild === selected) {
       middleCardMove(selected, moveTo);
-    } else if (selected.classList.length > 3) {
+    } else if (selected.classList.length > 3 && middleCards.includes(selected.dataset.value[0]) &&
+    moveTo.parentNode.classList.contains("card-stack") &&
+    // check if it's the right black/red combo
+    moveTo.classList[1] != selected.classList[1]
+    // check if the selected card is one smaller than the moveTo card
+    && refIndexes.indexOf(moveTo.dataset.value[0]) -
+      refIndexes.indexOf(selected.dataset.value[0]) === 1) {
       let selectedData = event.dataTransfer.getData("text");
       let selected = document.getElementById(selectedData);
       let moveTo = event.target;
