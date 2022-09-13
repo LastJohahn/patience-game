@@ -53,13 +53,27 @@ const refIndexes = [
 ];
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
-const logMutations = function(mutations, observer) {
-  mutations.forEach(function(mutation) {
-    console.log(mutation.type);
-  });
+const winChecker = function(mutations, observer) {
+  if (mutations) {
+    let cardStacks = document.querySelectorAll(".card-stack");
+    let allKingsOnlyKings = false;
+    let kingCheck = [];
+    for (let i = 0; i < cardStacks.length; i++) {
+      if (cardStacks[i].children.length === 0) {
+        kingCheck.push("empty")
+      } else if (cardStacks[i].firstChild.dataset.value[0] === "K" && cardStacks[i].firstChild.classList.contains("is-open")) {
+        kingCheck.push("king")
+      }
+      console.log(kingCheck)
+      if (kingCheck.length === 10) {
+        allKingsOnlyKings = true;
+      }
+    }
+    console.log(allKingsOnlyKings)
+  }
 }
 
-const observer = new MutationObserver(logMutations);
+const observer = new MutationObserver(winChecker);
 
 observer.observe(body, {childList: true, subtree: true})
 
