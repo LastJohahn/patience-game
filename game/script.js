@@ -29,8 +29,7 @@ const aceStacks = [
   aceStack1, aceStack2, aceStack3, aceStack4, aceStack5, aceStack6, aceStack7, aceStack8
 ]
 
-let clickCount = 0;
-let wholeDeck, dealDeck, inHand, inHandLength, selected;
+let wholeDeck, dealDeck, inHand, inHandLength;
 let dblClick = false;
 
 startGame();
@@ -53,6 +52,16 @@ const refIndexes = [
   "K",
 ];
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
+
+const logMutations = function(mutations, observer) {
+  mutations.forEach(function(mutation) {
+    console.log(mutation.type);
+  });
+}
+
+const observer = new MutationObserver(logMutations);
+
+observer.observe(body, {childList: true, subtree: true})
 
 body.addEventListener("click", clickHandler);
 
