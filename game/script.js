@@ -2,6 +2,7 @@ import Deck from "./deck.js";
 import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove } from "./clickHandlerHelper.js";
 
 const body = document.querySelector("body");
+const html = document.querySelector("html")
 
 const deckStack = document.querySelector(".deck-stack");
 
@@ -31,6 +32,7 @@ const aceStacks = [
 
 let wholeDeck, dealDeck, inHand, inHandLength;
 let dblClick = false;
+let alreadyPopUp = false;
 
 startGame();
 firstDeal();
@@ -59,29 +61,26 @@ const winChecker = function(mutations, observer) {
     let allKingsOnlyKings = false;
     let kingCheck = [];
     let inHandEmpty = false;
-    // let alreadyPopUp = false;
+
     for (let i = 0; i < cardStacks.length; i++) {
       if (cardStacks[i].children.length === 0) {
         kingCheck.push("empty")
       } else if (cardStacks[i].firstChild.dataset.value[0] === "K" && cardStacks[i].firstChild.classList.contains("is-open")) {
         kingCheck.push("king")
       }
-      console.log(kingCheck)
-      if (kingCheck.length === 10) {
+      if (kingCheck.length >= 1) {
         allKingsOnlyKings = true;
       }
     }
-    if (inHand.cards.length === 0) {
+    if (inHand.cards.length < 52) {
       inHandEmpty = true;
     }
-    console.log(allKingsOnlyKings)
-    console.log(inHandEmpty)
-    // if (allKingsOnlyKings && inHandEmpty && alreadyPopUp) {
-    //   let winPopUp = document.createElement("div");
-    //   winPopUp.className = "win-popup";
-    //   alreadyPopUp = true;
-    //   body.appendChild(winPopUp)
-    // }
+    if (allKingsOnlyKings && inHandEmpty && alreadyPopUp === false) {
+      alreadyPopUp = true;
+      let winPopUp = document.createElement("div");
+      winPopUp.classList.add("win-popup");
+      html.insertBefore(winPopUp, html.firstChild);
+    }
   }
 }
 
