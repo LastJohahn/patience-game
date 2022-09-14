@@ -58,6 +58,8 @@ const winChecker = function(mutations, observer) {
     let cardStacks = document.querySelectorAll(".card-stack");
     let allKingsOnlyKings = false;
     let kingCheck = [];
+    let inHandEmpty = false;
+    // let alreadyPopUp = false;
     for (let i = 0; i < cardStacks.length; i++) {
       if (cardStacks[i].children.length === 0) {
         kingCheck.push("empty")
@@ -69,7 +71,17 @@ const winChecker = function(mutations, observer) {
         allKingsOnlyKings = true;
       }
     }
+    if (inHand.cards.length === 0) {
+      inHandEmpty = true;
+    }
     console.log(allKingsOnlyKings)
+    console.log(inHandEmpty)
+    // if (allKingsOnlyKings && inHandEmpty && alreadyPopUp) {
+    //   let winPopUp = document.createElement("div");
+    //   winPopUp.className = "win-popup";
+    //   alreadyPopUp = true;
+    //   body.appendChild(winPopUp)
+    // }
   }
 }
 
