@@ -112,7 +112,9 @@ h1 {
 }
 
 .win-popup {
-  height: 100px;
-  width: 100px;
-  color: red;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  z-index: 5;
 }
