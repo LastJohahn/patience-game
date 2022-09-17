@@ -55,6 +55,18 @@ const refIndexes = [
 ];
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
+const winPopUp = document.createElement("div");
+const restartButton = document.createElement("button")
+restartButton.innerText = "Restart"
+
+restartButton.addEventListener("click", () => {
+  startGame();
+  firstDeal();
+})
+
+winPopUp.classList.add("win-popup");
+winPopUp.appendChild(restartButton)
+
 const winChecker = function(mutations, observer) {
   if (mutations) {
     let cardStacks = document.querySelectorAll(".card-stack");
@@ -77,8 +89,7 @@ const winChecker = function(mutations, observer) {
     }
     if (allKingsOnlyKings && inHandEmpty && alreadyPopUp === false) {
       alreadyPopUp = true;
-      let winPopUp = document.createElement("div");
-      winPopUp.classList.add("win-popup");
+
       html.insertBefore(winPopUp, html.firstChild);
     }
   }
@@ -219,6 +230,7 @@ function rightClickHandler(event) {
 }
 
 function startGame() {
+
   wholeDeck = new Deck();
   wholeDeck.shuffle();
   
@@ -229,6 +241,9 @@ function startGame() {
 }
 
 function inHandLengthSetter() {
+  if (alreadyPopUp) {
+    deckStack.innerHTML = ""
+  }
   inHandLength = document.createTextNode(inHand.numberOfCards);
   deckStack.appendChild(inHandLength);
 }
@@ -246,6 +261,20 @@ function firstDeal() {
     cardStack9,
     cardStack10,
   ];
+  if (alreadyPopUp){
+    winPopUp.parentNode.removeChild(winPopUp);
+    aceStacks.forEach((aceStack) => {
+      while (aceStack.lastChild) {
+        aceStack.removeChild(aceStack.lastChild)
+      }
+    })
+    cardStacks.forEach((cardStack) => {
+      while (cardStack.lastChild) {
+        cardStack.removeChild(cardStack.lastChild)
+      }
+    })
+  }
+  alreadyPopUp = false; 
   do {
     cardStacks[0].appendChild(dealDeck.pop().getHTML());
     cardStacks.shift();
