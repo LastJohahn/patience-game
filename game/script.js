@@ -80,11 +80,11 @@ const winChecker = function(mutations, observer) {
       } else if (cardStacks[i].firstChild.dataset.value[0] === "K" && cardStacks[i].firstChild.classList.contains("is-open")) {
         kingCheck.push("king")
       }
-      if (kingCheck.length >= 1) {
+      if (kingCheck.length === 10) {
         allKingsOnlyKings = true;
       }
     }
-    if (inHand.cards.length < 52) {
+    if (inHand.cards.length === 0) {
       inHandEmpty = true;
     }
     if (allKingsOnlyKings && inHandEmpty && alreadyPopUp === false) {
