@@ -56,16 +56,26 @@ const refIndexes = [
 const suitNames = [{"♠": "spades"}, {"♣": "clubs"}, {"♥": "hearts"}, {"♦": "diamonds"}]
 
 const winPopUp = document.createElement("div");
+winPopUp.classList.add("win-popup");
+
+const centerButton = document.createElement("div");
+centerButton.classList.add("center-button")
+
+const congratsMsg = document.createElement("div");
+congratsMsg.classList.add("congrats-msg");
+congratsMsg.innerText = "Congratulations! You won!"
+
 const restartButton = document.createElement("button")
 restartButton.innerText = "Restart"
-
+restartButton.classList.add("restart-button")
 restartButton.addEventListener("click", () => {
   startGame();
   firstDeal();
 })
 
-winPopUp.classList.add("win-popup");
-winPopUp.appendChild(restartButton)
+centerButton.appendChild(congratsMsg)
+centerButton.appendChild(restartButton)
+winPopUp.appendChild(centerButton)
 
 const winChecker = function(mutations, observer) {
   if (mutations) {
