@@ -87,5 +87,4 @@ function middleCardMove(selected, moveTo) {
   return;
 }
 
-
 export {noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove}
