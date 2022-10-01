@@ -1,5 +1,5 @@
 import Deck from "./deck.js";
-import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove } from "./clickHandlerHelper.js";
+import { noClickHereCheck, dealOut, cardsToMoveFinder, cardMoveLoop, moveToAceStack, middleCardMove } from "./helperFunctions.js";
 
 const body = document.querySelector("body");
 const html = document.querySelector("html")
@@ -34,8 +34,24 @@ let wholeDeck, dealDeck, inHand, inHandLength;
 let dblClick = false;
 let alreadyPopUp = false;
 
+const hideRulesButton = document.querySelector(".hide-rules-button");
+const rulesButton = document.querySelector(".rules-button");
+const rulesPopup = document.querySelector(".rules-popup");
+
+function closeRules() {
+  rulesPopup.style.display = "none"
+}
+
+function openRules() {
+  rulesPopup.style.display = "flex"
+}
+
+hideRulesButton.addEventListener("click", closeRules);
+rulesButton.addEventListener("click", openRules);
+
 startGame();
 firstDeal();
+
 
 const middleCards = ["2", "3", "4", "5", "6", "7", "8", "9", "1", "J", "Q"];
 const refIndexes = [
@@ -100,7 +116,7 @@ const winChecker = function(mutations, observer) {
     if (allKingsOnlyKings && inHandEmpty && alreadyPopUp === false) {
       alreadyPopUp = true;
 
-      html.insertBefore(winPopUp, html.firstChild);
+      html.insertBefore(winPopUp, html.children[1]);
     }
   }
 }
