@@ -8,8 +8,31 @@
     <script src="script.js" type="module"></script>
     <link rel="stylesheet" href="index.css" />
   </head>
+  <div class="rules-popup">
+    <div class="center-popup">
+      <div class="rules">
+        This is a game of solitaire played with two full decks. <br>
+        The goal is to have all the cards either on the ace stacks of the correct suit in the top 
+        or on a king stack in the game area, in descending order (Q, J, 10, 9...) and alternating black and red. <br>
+        Kings can only be moved onto an empty card stack in the game area and aces can only be moved to 
+        an empty ace stack at the top. <br>
+        All other cards can only be moved onto a card that is of one higher face value and the opposite colour within the game area,
+        or onto an ace stack of the correct suit with a card of one lower face value (eg a three of clubs within the game area can be moved onto
+        either a four of hearts or diamonds, but only onto a two of clubs on an ace stack). <br>
+        Click on a card face down and not covered by another card to turn it over. <br>
+        Once you have done all you can with the cards already face up, click on the 
+        stack in the top left to deal out again, onto every card stack that is not topped with a king. The number displayed
+        on that stack shows how many cards are left to deal out. <br>
+        Not every game can be won. In fact, most can't. Have fun!
+      </div>
+      <button class="hide-rules-button">Ok!</button>
+    </div>
+  </div>
   <body>
-    <h1>PATIENCE</h1>
+    <section class="top-bar">
+      <h1>PATIENCE</h1>
+      <button class="rules-button">RULES</button>
+    </section>
     <section class="game">
       <section class="top-row">
         <div class="deck-stack"></div>
