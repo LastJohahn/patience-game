@@ -4,15 +4,70 @@
   box-sizing: border-box;
 }
 
+.rules-popup {
+  display: flex;
+  position: fixed;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  z-index: 5;
+}
+
+.center-popup {
+  max-width: 871px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 70%;
+  width: 70%;
+  background-color: rgb(252, 252, 246);
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+
+.rules {
+  padding: 1.5rem;
+  display: flex;
+  font-size: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.hide-rules-button {
+  background-color: lightgray;
+  cursor: pointer;
+  height: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  font-weight: bold;
+}
+
 body {
-  max-width: 1000px;
+  max-width: 870px;
   margin: auto;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {
   margin: 0.4rem;
   text-align: left;
   font-family: 'Courier New', Courier, monospace;
+}
+
+.rules-button {
+  margin: 0.4rem;
+  background-color: lightgray;
+  cursor: pointer;
+  height: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  font-weight: bold;
 }
 
 .game {
@@ -36,6 +91,7 @@ h1 {
   border: 1px solid lightgray;
   border-radius: 0.5rem;
   cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .deck-stack {
