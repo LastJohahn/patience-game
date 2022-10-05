@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+button {
+  margin: 0.4rem;
+  background-color: lightgray;
+  cursor: pointer;
+  height: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  font-weight: bold;
+}
+
 .rules-popup {
   display: flex;
   position: fixed;
@@ -35,14 +45,6 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-.hide-rules-button {
-  background-color: lightgray;
-  cursor: pointer;
-  height: 30px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: large;
-  font-weight: bold;
-}
 
 body {
   max-width: 870px;
@@ -60,15 +62,6 @@ h1 {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.rules-button {
-  margin: 0.4rem;
-  background-color: lightgray;
-  cursor: pointer;
-  height: 30px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: large;
-  font-weight: bold;
-}
 
 .game {
   margin: 0;
@@ -197,11 +190,3 @@ h1 {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.restart-button {
-  background-color: lightgray;
-  cursor: pointer;
-  height: 30px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: large;
-  font-weight: bold;
-}
