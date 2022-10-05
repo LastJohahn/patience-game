@@ -37,6 +37,7 @@ let alreadyPopUp = false;
 const hideRulesButton = document.querySelector(".hide-rules-button");
 const rulesButton = document.querySelector(".rules-button");
 const rulesPopup = document.querySelector(".rules-popup");
+const restartButtonTop = document.querySelector(".restart-button-top")
 
 function closeRules() {
   rulesPopup.style.display = "none"
@@ -48,6 +49,33 @@ function openRules() {
 
 hideRulesButton.addEventListener("click", closeRules);
 rulesButton.addEventListener("click", openRules);
+restartButtonTop.addEventListener("click", () => {
+  deckStack.innerHTML = ""
+  const cardStacks = [
+    cardStack1,
+    cardStack2,
+    cardStack3,
+    cardStack4,
+    cardStack5,
+    cardStack6,
+    cardStack7,
+    cardStack8,
+    cardStack9,
+    cardStack10,
+  ];
+  aceStacks.forEach((aceStack) => {
+    while (aceStack.lastChild) {
+      aceStack.removeChild(aceStack.lastChild)
+    }
+  })
+  cardStacks.forEach((cardStack) => {
+    while (cardStack.lastChild) {
+      cardStack.removeChild(cardStack.lastChild)
+    }
+  })
+  startGame();
+  firstDeal();
+})
 
 startGame();
 firstDeal();
@@ -84,6 +112,7 @@ congratsMsg.innerText = "Congratulations! You won!"
 const restartButton = document.createElement("button")
 restartButton.innerText = "Restart"
 restartButton.classList.add("restart-button")
+
 restartButton.addEventListener("click", () => {
   startGame();
   firstDeal();
