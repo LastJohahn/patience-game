@@ -54,6 +54,7 @@ body {
 .top-bar {
   display: flex;
   justify-content: space-between;
+  margin: 0.4rem;
 }
 
 h1 {
