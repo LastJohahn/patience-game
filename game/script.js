@@ -355,7 +355,7 @@ function deal() {
     cardStack9,
     cardStack10,
   ];
-  if (inHand.numberOfCards >= 10) {
+  if (inHand.numberOfCards >= 0) {
   for (let i = 0; i < cardStacks.length; i++) {
     if (cardStacks[i].children.length === 0 || cardStacks[i].firstChild.classList.contains("is-open")) {
       if (cardStacks[i].children.length === 0 || cardStacks[i].firstChild.dataset.value[0] != "K") {
@@ -370,29 +370,11 @@ function deal() {
       cardStacks[i].appendChild(dealCard);
       moveTogetherClassCheckerOnDeal(dealCard)
     }
+    deckStack.removeChild(deckStack.firstChild);
+    inHandLengthSetter();
+    dragging()
   }
-  deckStack.removeChild(deckStack.firstChild);
-  inHandLengthSetter();
-} else if (inHand.numberOfCards >= 0) {
-  do {
-      if (cardStacks[0].children.length === 0 || cardStacks[0].firstChild.classList.contains("is-open")) {
-        if (cardStacks[0].children.length === 0 || cardStacks[0].firstChild.dataset.value[0] != "K") {
-          let dealCard = inHand.pop().getHTML();
-          flipCard(dealCard);
-          cardStacks[0].appendChild(dealCard);
-        }
-      } else if (cardStacks[0].firstChild.classList.contains("is-flipped")) {
-        let dealCard = inHand.pop().getHTML();
-        flipCard(dealCard);
-        cardStacks[0].appendChild(dealCard);
-      }
-      cardStacks.splice(0,1);
-  }
-  while (inHand.numberOfCards != 0)
-  deckStack.removeChild(deckStack.firstChild);
-  inHandLengthSetter();
 }
-dragging()
 }
 
 function flipCard(card) {
