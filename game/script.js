@@ -362,13 +362,13 @@ function deal() {
         let dealCard = inHand.pop().getHTML();
         flipCard(dealCard);
         cardStacks[i].appendChild(dealCard);
-        moveTogetherClassCheckerOnDeal(dealCard)
+        moveTogetherClassCheckerOnDeal(dealCard);
       }
     } else if (cardStacks[i].firstChild.classList.contains("is-flipped")) {
       let dealCard = inHand.pop().getHTML();
       flipCard(dealCard);
       cardStacks[i].appendChild(dealCard);
-      moveTogetherClassCheckerOnDeal(dealCard)
+      moveTogetherClassCheckerOnDeal(dealCard);
     }
     deckStack.removeChild(deckStack.firstChild);
     inHandLengthSetter();
@@ -429,14 +429,14 @@ function moveTogetherClassChecker(card, moveTo) {
 function moveTogetherClassCheckerOnDeal (card) {
   let previousCard = card.previousElementSibling; 
   if (previousCard) {
-  if (previousCard.classList.length <= 3) {
-    // checks if right red/black combo
-    if (previousCard.classList[1] != card.classList[1] 
-    // checks if card is one smaller than previousCard 
-      && refIndexes.indexOf(previousCard.dataset.value[0]) - refIndexes.indexOf(card.dataset.value[0]) === 1) {
+    if (previousCard.classList.length <= 3) {
+      // checks if right red/black combo
+      if (previousCard.classList[1] != card.classList[1] 
+        // checks if card is one smaller than previousCard 
+        && refIndexes.indexOf(previousCard.dataset.value[0]) - refIndexes.indexOf(card.dataset.value[0]) === 1) {
         moveTogetherClassMaker(previousCard, card);
       }
-  } else if (previousCard.classList > 3) {
+  } else if (previousCard.classList.length > 3) {
     if (previousCard.classList[1] != card.classList[1]
       && refIndexes.indexOf(previousCard.dataset.value[0]) - refIndexes.indexOf(card.dataset.value[0]) === 1) {
         moveTogetherClassAdder(previousCard, card);
