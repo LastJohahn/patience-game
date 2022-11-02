@@ -10,6 +10,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overscroll-behavior: none;
+}
+
 button {
   margin: 0.4rem;
   background-color: lightgray;
@@ -55,7 +59,6 @@ button {
 body {
   max-width: 870px;
   margin: auto;
-  overscroll-behavior: none;
 }
 
 .top-bar {
