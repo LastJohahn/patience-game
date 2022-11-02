@@ -55,6 +55,7 @@ button {
 body {
   max-width: 870px;
   margin: auto;
+  overscroll-behavior: contain;
 }
 
 .top-bar {
