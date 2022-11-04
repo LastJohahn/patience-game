@@ -108,6 +108,18 @@ h1 {
   user-select: none;
 }
 
+.deck-stack.dealt-out {
+  animation-name: dealtout;
+  animation-duration: 1s;
+  
+}
+
+@keyframes dealtout {
+  0% {background-color: lightgray}
+  10% {background-color: rgb(252, 252, 246);}
+  57% {background-color: lightgray;}
+}
+
 #empty {
   border: none;
 }

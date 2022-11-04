@@ -372,7 +372,11 @@ function deal() {
     }
     deckStack.removeChild(deckStack.firstChild);
     inHandLengthSetter();
-    dragging()
+    deckStack.classList.add("dealt-out")
+    dragging();
+    setTimeout(() => {
+      deckStack.classList.remove("dealt-out")
+    }, 1000)
   }
 }
 }
