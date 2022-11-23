@@ -37,7 +37,8 @@ let alreadyPopUp = false;
 const hideRulesButton = document.querySelector(".hide-rules-button");
 const rulesButton = document.querySelector(".rules-button");
 const rulesPopup = document.querySelector(".rules-popup");
-const restartButtonTop = document.querySelector(".restart-button-top")
+const restartButtonTop = document.querySelector(".restart-button-top");
+const undoButton = document.querySelector("undo-button");
 
 function closeRules() {
   rulesPopup.style.display = "none"
@@ -152,14 +153,23 @@ const winChecker = function(mutations, observer) {
 
 const winObserver = new MutationObserver(winChecker);
 const undoObserver = new MutationObserver((mutations) => {
-  mutations.forEach(mutation => 
-    console.log(mutation, "break")
-    
-    )
+  mutations.forEach((mutation) => {
+    if (mutation.type === "childList") {
+      console.log(mutation)
+    }
+  })
 })
 
 winObserver.observe(body, {childList: true, subtree: true})
-undoObserver.observe(body, {childList: true, subtree: true})
+undoObserver.observe(body, {
+  attributes: true,
+  characterData: true,
+  childList: true,
+  subtree: true,
+  attributeOldValue: true,
+  characterDataOldValue: true})
+
+undoButton.addEventListener("click", () => {})
 
 body.addEventListener("click", clickHandler);
 
