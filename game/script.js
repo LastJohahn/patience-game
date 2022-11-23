@@ -150,9 +150,16 @@ const winChecker = function(mutations, observer) {
   }
 }
 
-const observer = new MutationObserver(winChecker);
+const winObserver = new MutationObserver(winChecker);
+const undoObserver = new MutationObserver((mutations) => {
+  mutations.forEach(mutation => 
+    console.log(mutation, "break")
+    
+    )
+})
 
-observer.observe(body, {childList: true, subtree: true})
+winObserver.observe(body, {childList: true, subtree: true})
+undoObserver.observe(body, {childList: true, subtree: true})
 
 body.addEventListener("click", clickHandler);
 
@@ -267,9 +274,10 @@ function doubleClickHandler(event) {
   dblClick = true;
   const selected = event.target;
   if (selected.dataset.value[0] === "A") {
-    for (let i = 7; i >= 0; i--) {
+    for (let i = 0; i < aceStacks.length; i++) {
       if (aceStacks[i].children.length === 0) {
-        aceStacks[i].appendChild(selected)
+        aceStacks[i].appendChild(selected);
+        return;
       }
     }
   }
