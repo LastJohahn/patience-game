@@ -38,7 +38,7 @@ const hideRulesButton = document.querySelector(".hide-rules-button");
 const rulesButton = document.querySelector(".rules-button");
 const rulesPopup = document.querySelector(".rules-popup");
 const restartButtonTop = document.querySelector(".restart-button-top");
-const undoButton = document.querySelector("undo-button");
+const undoButton = document.querySelector(".undo-button");
 
 function closeRules() {
   rulesPopup.style.display = "none"
