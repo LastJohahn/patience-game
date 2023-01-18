@@ -151,25 +151,23 @@ const winChecker = function(mutations, observer) {
   }
 }
 
+
 const winObserver = new MutationObserver(winChecker);
+
+let mutationsArray = [];
+
 const undoObserver = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
-    if (mutation.type === "childList") {
-      console.log(mutation)
-    }
+      mutationsArray.push(mutation)
   })
 })
 
 winObserver.observe(body, {childList: true, subtree: true})
-undoObserver.observe(body, {
-  attributes: true,
-  characterData: true,
-  childList: true,
-  subtree: true,
-  attributeOldValue: true,
-  characterDataOldValue: true})
+undoObserver.observe(body, {childList: true, subtree: true})
 
-undoButton.addEventListener("click", () => {})
+undoButton.addEventListener("click", () => {
+  console.log(mutationsArray)
+})
 
 body.addEventListener("click", clickHandler);
 
